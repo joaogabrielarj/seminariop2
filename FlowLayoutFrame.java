@@ -1,81 +1,55 @@
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 public class FlowLayoutFrame extends JFrame {
 
-    private JButton botaoEsquerdo;
-    //BOTÃO PARA CONFIGURAR O ALINHAMENTO À ESQUERDA
-    private JButton botaoDireito;
-    //BOTÃO PARA CONFIGURAR O ALINHAMENTO À DIREITA
-    private JButton botaoCentral;
-    //BOTÃO PARA CONFIGURAR O ALINHAMENTO CENTRALIZADO
-    private FlowLayout layout;
-    //OBJETO LAYOUT
     private Container container;
-    //CONTÊINER PARA CONFIGURAR LAYOUT
 
-    //CONFIGURA GUI E REGISTRA LISTENERS DE BOTÃO
-    public FlowLayoutFrame()
-    {
-        super("Demonstração de um FlowLayout");
+    private JLabel loginLabel;
+    private JTextField loginTexto;
+    private JLabel senhaLabel;
+    private JPasswordField senhaTexto;
 
-        layout = new FlowLayout();		//CRIA FLOWLAYOUT
-        container = getContentPane();	//OBTÊM CONTEINER PARA LAYOUT
+    // CONFIGURA GUI
+    public FlowLayoutFrame() {
+        super("Demonstração de um Layout");
 
-        setLayout(layout);	//CONFIGURA O LAYOUT DE FRAME
+        container = getContentPane(); // Obtém o contêiner para layout
+        setLayout(new FlowLayout(FlowLayout.LEFT)); // Configura o layout do frame
 
-        //CONFIGURA LEFTBUTTON E REGISTRA LISTENER
-        botaoEsquerdo = new JButton("Esquerda");	//CRIA O BOTÃO LEFT
-        setSize(400,150);
-        add(botaoEsquerdo);		//ADICIONA O BOTÃO ESQUERDO AO FRAME
+        // Painel para os campos de login e senha com layout vertical (BoxLayout)
+        JPanel quadradosCaixinhas = new JPanel();
+        quadradosCaixinhas.setLayout(new BoxLayout(quadradosCaixinhas, BoxLayout.Y_AXIS));
 
-        botaoEsquerdo.addActionListener(new ActionListener() {
+        // Campo de login
+        loginLabel = new JLabel("Login:");
+        loginTexto = new JTextField(15);
+        quadradosCaixinhas.add(loginLabel);
+        quadradosCaixinhas.add(loginTexto);
 
-            @Override
-            //PROCESSA O EVENTO BOTÃO ESQUERDO
-            public void actionPerformed(ActionEvent e) {
-                layout.setAlignment(FlowLayout.LEFT);
+        // Espaço entre os campos
+        quadradosCaixinhas.add(Box.createVerticalStrut(10));
 
-                //REALINHA OS COMPONENTES ANEXADOS
-                layout.layoutContainer(container);
-            }
-        }
-        );
+        // Campo de senha
+        senhaLabel = new JLabel("Senha:");
+        senhaTexto = new JPasswordField(15);
+        quadradosCaixinhas.add(senhaLabel);
+        quadradosCaixinhas.add(senhaTexto);
 
-        //CONFIGURA O BOTÃO CENTRAL E REGISTRA O LISTENER
-        botaoCentral = new JButton("Centro");	//CRIA P BOTÃO CENTRAL
-        add(botaoCentral);	//ADICIONO O BOTÃO AO FRAME
+        // Criando o painel quadrado
+        JPanel quadradinho = new JPanel();
+        quadradinho.setPreferredSize(new Dimension(100, 100)); // Tamanho fixo para o quadrado
+        quadradinho.setBackground(Color.LIGHT_GRAY); // Cor de fundo para o quadrado
 
-        botaoCentral.addActionListener(new ActionListener() {
+        // Criar um painel principal para agrupar os campos e o quadrado
+        JPanel quadradoPrincipal = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        quadradoPrincipal.add(quadradosCaixinhas); // Adiciona o painel dos campos
+        quadradoPrincipal.add(quadradinho); // Adiciona o painel quadrado
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                layout.setAlignment(FlowLayout.CENTER);
+        // Adiciona o painel principal ao frame
+        add(quadradoPrincipal);
 
-                //REALINHA OS COMPONENTES ANEXADOS
-                layout.layoutContainer(container);
-            }
-        }
-        );
-
-        //CONFIGURA O BOTÃO DIREITO E REGISTRA O LISTENER
-        botaoDireito = new JButton("Direita");
-        add(botaoDireito);	//ADICIONA BOTÃO
-
-        botaoDireito.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                layout.setAlignment(FlowLayout.RIGHT);
-
-                layout.layoutContainer(container);
-            }
-        }
-        );
+        // Configuração do tamanho da janela
+        setSize(400, 200);
     }
 }

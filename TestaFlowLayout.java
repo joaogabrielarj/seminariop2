@@ -1,13 +1,9 @@
 import javax.swing.*;
 
-public class TestaFlowLayout {
+public class Main {
     public static void main(String[] args) {
-
-        FlowLayoutFrame fl = new FlowLayoutFrame();
-        fl.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fl.setSize(600, 75);	//CONFIGURA O TAMANHO DA TELA
-        fl.setVisible(true);	//CONFIGURA A VISIBILIDADE
-
-
+        FlowLayoutFrame janelaInteira = new FlowLayoutFrame();
+        janelaInteira.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janelaInteira.setVisible(true);
     }
 }
